@@ -29,4 +29,26 @@ document.addEventListener("DOMContentLoaded", function () {
         modal.classList.remove("active");
       }
     });
+});
+  
+document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.querySelector('.cookie-banner');
+
+    // Якщо банер вже прийнято/відхилено — не показуємо його
+    const cookieStatus = localStorage.getItem('cookieConsent');
+    if (cookieStatus === 'accepted' || cookieStatus === 'rejected') {
+      banner.style.display = 'none';
+      return;
+    }
+
+    // Обробка кліків на обидві кнопки
+    document.querySelector('.btn-accept')?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'accepted');
+      banner.style.display = 'none';
+    });
+
+    document.querySelector('.btn-more')?.addEventListener('click', () => {
+      localStorage.setItem('cookieConsent', 'rejected');
+      banner.style.display = 'none';
+    });
   });

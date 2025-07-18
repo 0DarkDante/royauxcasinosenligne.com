@@ -51,4 +51,36 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('cookieConsent', 'rejected');
       banner.style.display = 'none';
     });
+});
+  
+ document.addEventListener('DOMContentLoaded', () => {
+    const ageGate = document.querySelector('.age-gate');
+    const confirmBtn = ageGate.querySelector('.btn-confirm');
+    const denyBtn = ageGate.querySelector('.btn-deny');
+    const confirmSection = ageGate.querySelector('.age-gate__confirm');
+    const deniedSection = ageGate.querySelector('.age-gate__denied');
+
+    // Перевіряємо localStorage — якщо вже підтверджено, ховаємо вікно
+    if (localStorage.getItem('ageConfirmed') === 'true') {
+      ageGate.style.display = 'none';
+      return;
+    }
+
+    // Підтвердження віку
+    confirmBtn.addEventListener('click', () => {
+      localStorage.setItem('ageConfirmed', 'true');
+      ageGate.style.display = 'none';
+    });
+
+    // Відмова у доступі
+    denyBtn.addEventListener('click', () => {
+      // Переключаємось на секцію "відмови"
+      confirmSection.classList.add('hidden');
+      deniedSection.classList.remove('hidden');
+
+      // Через 3 секунди редірект на Google (або будь-який інший сайт)
+      setTimeout(() => {
+        window.location.href = 'https://www.google.com';
+      }, 3000);
+    });
   });

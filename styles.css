@@ -38,6 +38,10 @@
       padding: 20px;
     }
 
+.container-nav {
+  padding: 0;
+}
+
 .header-wrap {
   background-color: var(--bg-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
@@ -49,7 +53,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+}
+
+.nav-main img {
+  height: 90px;
 }
 
 .nav-links {

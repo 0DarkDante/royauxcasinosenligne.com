@@ -122,56 +122,232 @@
       padding: 40px 20px;
       background-color: var(--bg-light);
     }
+.bookmaker-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: flex-start;
+}
 
-    .bookmaker-card {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 24px;
-      background-color: #0e152b;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 24px;
-      align-items: center;
-    }
+.bookmaker-card {
+  flex: 0 0 calc((100% - 48px) / 3);
+  box-sizing: border-box;
 
-    .brand-icon {
-      width: 72px;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-    }
+  /* решта твоїх стилів */
+  background: linear-gradient(135deg, #0c2f55 0%, #103e7c 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(12, 47, 85, 0.5);
+  padding: 24px;
+  margin: 12px 0;
+  /* верх-низ, а горизонтальний відступ керує gap */
+  color: #f0f4f8;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  border: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.6s ease;
+}
 
-    .bookmaker-rating .stars img {
-      width: 18px;
-      height: 18px;
-    }
+.bookmaker-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  left: -3px;
+  right: -3px;
+  border-radius: 20px;
+  border: 3px solid #ffa000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  animation: borderPulse 3s infinite alternate ease-in-out;
+}
 
-    .bookmaker-rating p {
-      margin-top: 6px;
-      font-weight: bold;
-    }
+.bookmaker-card:hover::before {
+  opacity: 1;
+}
 
-    .bonus-offer p {
-      font-size: 1rem;
-      color: #e0e0e0;
-    }
+.bookmaker-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(12, 47, 85, 0.8);
+}
 
-    .cta .btn-play {
-      background-color: var(--accent);
-      color: #000;
-      font-weight: 600;
-      padding: 10px 16px;
-      border-radius: 6px;
-      display: inline-block;
-      transition: background-color 0.2s;
-    }
+/* Анімація появи */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .cta .btn-play:hover {
-      background-color: #e48800;
-    }
+/* Пульсація бордера */
+@keyframes borderPulse {
+  0% {
+    border-color: #ffa000;
+    box-shadow: 0 0 10px #ffa000;
+  }
 
+  100% {
+    border-color: #ffd54f;
+    box-shadow: 0 0 30px #ffd54f;
+  }
+}
+
+/* Інші стилі залишаються без змін */
+
+.brand-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #0c2f55;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.bookmaker-card:hover .brand-icon {
+  box-shadow: 0 0 25px #ffa000;
+  animation: pulseGlow 1.5s infinite alternate;
+}
+
+.brand-icon img {
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+/* Пульсація сяйва для іконки */
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 10px #ffa000;
+  }
+
+  to {
+    box-shadow: 0 0 30px #ffca28;
+  }
+}
+
+.bookmaker-rating {
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.stars img {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.8));
+  transition: filter 0.3s ease;
+}
+
+.bookmaker-card:hover .stars img {
+  filter: drop-shadow(0 0 6px #ffb300);
+  animation: starTwinkle 2s infinite;
+}
+
+/* Анімація мерехтіння зірок */
+@keyframes starTwinkle {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px #ffb300);
+    transform: scale(1);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 12px #ffd54f);
+    transform: scale(1.15);
+  }
+}
+
+.bonus-offer {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffd54f;
+  text-align: center;
+  margin-bottom: 24px;
+  text-shadow: 0 0 4px rgba(255, 213, 79, 0.9);
+  user-select: none;
+  transition: background 0.3s ease;
+}
+
+.bookmaker-card:hover .bonus-offer {
+  background: rgba(255, 255, 255, 0.3);
+  animation: bonusGlow 1.5s infinite alternate;
+}
+
+/* Пульсація фону бонусу */
+@keyframes bonusGlow {
+  from {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  to {
+    background: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.cta {
+  width: 100%;
+  text-align: center;
+}
+
+.btn-play {
+  display: inline-block;
+  background: #ffb300;
+  color: #0c2f55;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  box-shadow: 0 8px 20px rgba(255, 179, 0, 0.7);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  user-select: none;
+}
+
+.btn-play:hover {
+  background: #ffa000;
+  box-shadow: 0 12px 30px rgba(255, 160, 0, 0.9);
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Контейнер для 3 карток */
+
+.bookmaker-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
  .footer-main {
    background-color: #1c2333;
    /* глибокий темно-синій фон */
